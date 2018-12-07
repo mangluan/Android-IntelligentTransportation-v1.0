@@ -63,18 +63,6 @@ public class Fragment1 extends Fragment {
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (cbPwd.isChecked()){
-            mEditor.putString("id",etName.getText().toString());
-            mEditor.putString("pwd",etPwd.getText().toString());
-        }else {
-            mEditor.putString("id","");
-            mEditor.putString("pwd","");
-        }mEditor.apply();
-    }
-
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -125,8 +113,14 @@ public class Fragment1 extends Fragment {
                     try {
                         JSONObject jsonObject = new JSONObject(msg.obj.toString());
                         if (jsonObject.getString("RESULT").equals("S")) {
+                            if (cbPwd.isChecked()){
+                                mEditor.putString("id",etName.getText().toString());
+                                mEditor.putString("pwd",etPwd.getText().toString());
+                            }else {
+                                mEditor.putString("id",etName.getText().toString());
+                                mEditor.putString("pwd","");
+                            }mEditor.apply();
                             //保存账户类型:R01:普通用户，R02：管理员，R03：超级管理员
-                            mEditor = mSharedPreferences.edit();
                             mEditor.putString("UserRole",jsonObject.getString("UserRole")).apply();
                             //本地验证成功，登陆
                             MainActivity.startAction(mContext);

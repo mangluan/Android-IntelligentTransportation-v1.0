@@ -81,7 +81,7 @@ public class HLManage  extends Fragment {
                             mDataList = mySQLite.HLQuery("select * from HongLvDENG order by _id asc");
                             myAdapter.notifyDataSetChanged();
                         }
-                        if (index++<=5){
+                        if (index++<5){
                             initData();
                         }
                     } catch (JSONException e) {
