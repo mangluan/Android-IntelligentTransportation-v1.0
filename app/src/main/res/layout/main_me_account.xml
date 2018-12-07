@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="账户余额："
+                android:textColor="#000"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/money_tv_meAccount_main"
+                android:text="55元"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="车        号："
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:id="@+id/spinner_meAccount_main"
+                android:theme="@style/MySpinner"
+                android:entries="@array/carID"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="充值金额："
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:padding="5dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/money2_tv_meAccount_main"
+                android:text="0元"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:padding="5dp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="150dp"
+                android:padding="5dp"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/chaxun_btn_meAccount_main"
+                    android:text="查询"
+                    android:layout_gravity="center"
+                    android:background="@drawable/hui_hui"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:padding="5dp"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/chongzhi_btn_meAccount_main"
+                    android:text="充值"
+                    android:layout_gravity="center"
+                    android:background="@drawable/hui_hui"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:padding="5dp"
+                    android:layout_width="120dp"
+                    android:layout_height="35dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

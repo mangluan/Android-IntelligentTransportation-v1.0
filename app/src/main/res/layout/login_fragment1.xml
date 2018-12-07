@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/name_et_fragm"
+        android:layout_above="@+id/pwd_et_fragm"
+        android:background="@drawable/heikuang"
+        android:hint="请输入用户名"
+        android:gravity="center"
+        android:inputType="text"
+        android:singleLine="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/pwd_et_fragm"
+        android:hint="请输入密码"
+        android:singleLine="true"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:background="@drawable/heikuang"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_below="@+id/pwd_et_fragm"
+        android:layout_width="match_parent"
+        android:id="@+id/frame1_null_main"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/login_cbox_fragm"
+            android:layout_gravity="right"
+            android:text="自动登陆"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:id="@+id/pwd_cbox_fragm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记住密码"
+            android:textSize="20sp" />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_below="@+id/frame1_null_main"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="200dp"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="登陆"
+            android:id="@+id/logIn_btn_fragm"
+            android:layout_weight="1"
+            android:layout_marginRight="20dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="注册"
+            android:onClick="SingIn"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

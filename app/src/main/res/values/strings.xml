@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">模拟题</string>
+    <string-array name="carID">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <array name="hlSort">
+        <item>路口升序</item>
+        <item>路口降序</item>
+        <item>红灯升序</item>
+        <item>红灯降序</item>
+        <item>绿灯升序</item>
+        <item>绿灯降序</item>
+        <item>黄灯升序</item>
+        <item>黄灯降序</item>
+    </array>
+    <array name="billSort">
+        <item>时间降序</item>
+        <item>时间升序</item>
+    </array>
+</resources>

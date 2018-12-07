@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/name_et_fragm2"
+        android:layout_above="@+id/pwd_et_fragm2"
+        android:background="@drawable/heikuang"
+        android:hint="*注册功能不可用"
+        android:gravity="center"
+        android:inputType="text"
+        android:singleLine="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="*注册功能不可用"
+        android:layout_above="@+id/pwd2_et_fragm2"
+        android:singleLine="true"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:id="@+id/pwd_et_fragm2"
+        android:layout_centerInParent="true"
+        android:background="@drawable/heikuang"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/pwd2_et_fragm2"
+        android:background="@drawable/heikuang"
+        android:hint="*注册功能不可用"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_below="@+id/pwd2_et_fragm2"
+        android:id="@+id/phone_et_fragm2"
+        android:background="@drawable/heikuang"
+        android:hint="*注册功能不可用"
+        android:gravity="center"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_below="@+id/phone_et_fragm2"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="200dp"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+    <Button
+        android:text="取消"
+        android:id="@+id/qx_btn_frag2"
+        android:layout_weight="1"
+        android:layout_marginRight="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="取消"
+        android:id="@+id/sign_btn_frag2"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

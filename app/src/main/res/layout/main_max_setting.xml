@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="自动报警："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Switch
+            android:id="@+id/switch_max_main"
+            android:text="关   "
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ImageView
+        android:background="#000"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="温        度："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/wendu_et_max_main"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/heikuang"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="湿        度："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/shidu_et_max_main"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/heikuang"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="光        照："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/guanzhao_et_max_main"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/heikuang"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="CO2         ："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/co2_et_max_main"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/heikuang"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="PM2.5     ："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/pm_et_max_main"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/heikuang"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="道路状态："
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/daoluzhuantai_et_max_main"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:padding="2dp"
+            android:background="@drawable/heikuang"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:text="保存"
+        android:id="@+id/baocun_btn_max_main"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="150dp"
+        android:layout_gravity="left"
+        android:background="@drawable/hui_hui"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:padding="5dp"
+        android:layout_width="150dp"
+        android:layout_height="30dp" />
+</LinearLayout>
