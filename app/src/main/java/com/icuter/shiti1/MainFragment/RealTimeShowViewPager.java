@@ -54,7 +54,8 @@ public class RealTimeShowViewPager extends Fragment {
     int index = 0;
     String ip;
     TextView tvTeble;
-    int[] maxs = new int[]{ 40 , 60 , 8000 , 8000 , 500 , 4 };
+    int[] maxs = new int[]{ 40 , 60 , 8000 , 8000 , 500 , 5 };
+    int[] counts = new int[]{ 4 , 6 ,8 ,8 ,5 ,5 };
     String[] teble = new String[]{ "温度", "湿度", "光照", "CO2", "PM2.5", "道理状况"};
     String[] keys = new String[]{ "SenseName", "SenseName", "SenseName", "SenseName", "SenseName" ,"RoadId"};
     String[] values = new String[]{ "temperature", "humidity", "co2", "LightIntensity", "pm2.5" ,"1"};
@@ -142,7 +143,7 @@ public class RealTimeShowViewPager extends Fragment {
         YAxis yRight = lineChart.getAxisRight();
         yLeft.setAxisMaxValue(maxs[index]);
         yLeft.setAxisMinValue(0f);
-        yLeft.setLabelCount(8,false);
+        yLeft.setLabelCount(counts[index],false);
 
         yLeft.setDrawAxisLine(false);
         yRight.setDrawAxisLine(false);
