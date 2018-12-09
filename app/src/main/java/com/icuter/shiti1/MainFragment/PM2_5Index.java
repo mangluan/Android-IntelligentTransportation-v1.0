@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.icuter.shiti1.R;
 import com.icuter.shiti1.Util.MySQLite;
 import com.icuter.shiti1.Util.NetRequest;
+import com.icuter.shiti1.Util.Tools;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,10 +87,10 @@ public class PM2_5Index extends Fragment {
                 if (msg.what == 1){
                     mListData.clear();
                     try {
-                        NetRequest netRequest = new NetRequest(getContext(),"http://47.106.75.2:8080/transportservice/action/GetRoadStatus.do ",nHandler);
+                        NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("GetRoadStatus.do") ,nHandler);
                         Map<String,String> params = new HashMap<>();
                         params.put("RoadId","1");
-                        params.put("UserName","admin");
+                        params.put("UserName",Tools.getUserName(getContext()));
                         netRequest.setParams(params);
                         new Thread(netRequest).start();
                     } catch (MalformedURLException e) {
@@ -162,9 +163,9 @@ public class PM2_5Index extends Fragment {
     private void initData() {
         mListData = new ArrayList<>();
         try {
-            mNetRequest = new NetRequest(getContext(),"http://47.106.75.2:8080/transportservice/action/GetAllSense.do",mHandler);
+            mNetRequest = new NetRequest(getContext(),Tools.getIP("GetAllSense.do") ,mHandler);
             Map<String,String> params = new HashMap<>();
-            params.put("UserName","admin");
+            params.put("UserName",Tools.getUserName(getContext()));
             mNetRequest.setParams(params);
             mNetRequest.setLoop(true);
             mNetRequest.setLoopTime(3000);

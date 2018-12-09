@@ -88,7 +88,7 @@ public class Fragment1 extends Fragment {
                     Toast.makeText(mContext, "密码未输入", Toast.LENGTH_LONG).show();
                 }else {
                     try {
-                        NetRequest netRequest = new NetRequest(getContext(), Tools.IP+"user_login.do",mHandler);
+                        NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("user_login.do"),mHandler);
                         Map<String,String> params = new HashMap<>();
                         params.put("UserName",etName.getText().toString());
                         params.put("UserPwd",etPwd.getText().toString());

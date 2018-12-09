@@ -96,7 +96,11 @@ public class RealTimeShow extends Fragment {
 
             }
         });
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
         mViewPager.setCurrentItem(index);
     }
 

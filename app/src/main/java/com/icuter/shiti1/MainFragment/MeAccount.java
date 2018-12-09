@@ -148,12 +148,11 @@ public class MeAccount extends Fragment {
                         money = mDialog.getMoney();
                         mMoney2.setText(money +"元");
                         try {
-                            NetRequest netRequest = new NetRequest(mContext, Tools.IP+"SetCarAccountRecharge.do",mHandler2);
+                            NetRequest netRequest = new NetRequest(mContext, Tools.getIP("SetCarAccountRecharge.do") ,mHandler2);
                             Map<String,String> params = new HashMap<>();
-                            SharedPreferences sharedPreferences = getContext().getSharedPreferences("Data", Context.MODE_PRIVATE);
                             params.put("CarId",(mSpinner.getSelectedItemPosition()+1)+"");
                             params.put("Money", money +"");
-                            params.put("UserName",sharedPreferences.getString("id","admin"));
+                            params.put("UserName",Tools.getUserName(getContext()));
                             netRequest.setParams(params);
                             new Thread(netRequest).start();
                         } catch (MalformedURLException e) {
@@ -169,11 +168,10 @@ public class MeAccount extends Fragment {
 
     private void initData() {
         try {
-            NetRequest netRequest = new NetRequest(mContext, Tools.IP+"GetCarAccountBalance.do",mHandler);
+            NetRequest netRequest = new NetRequest(mContext, Tools.getIP("GetCarAccountBalance.do") ,mHandler);
             Map<String,String> params = new HashMap<>();
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("Data", Context.MODE_PRIVATE);
             params.put("CarId",(mSpinner.getSelectedItemPosition()+1)+"");
-            params.put("UserName",sharedPreferences.getString("id","admin"));
+            params.put("UserName",Tools.getUserName(getContext()));
             netRequest.setParams(params);
             new Thread(netRequest).start();
         } catch (MalformedURLException e) {

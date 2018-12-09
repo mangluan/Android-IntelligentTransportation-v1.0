@@ -150,11 +150,10 @@ public class HLManage  extends Fragment {
 
     private void initData() {
         try {
-                NetRequest netRequest = new NetRequest(getContext(), Tools.IP+"GetTrafficLightConfigAction.do",mHandler);
+                NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("GetTrafficLightConfigAction.do") ,mHandler);
                 Map<String,String> params = new HashMap<>();
                 params.put("TrafficLightId",index+"");
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences("Data", Context.MODE_PRIVATE);
-                params.put("UserName",sharedPreferences.getString("id","admin"));
+                params.put("UserName",Tools.getUserName(getContext()));
                 netRequest.setParams(params);
                 new Thread(netRequest).start();
             } catch (MalformedURLException e) {

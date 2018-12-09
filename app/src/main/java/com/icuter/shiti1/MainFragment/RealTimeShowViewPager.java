@@ -75,7 +75,7 @@ public class RealTimeShowViewPager extends Fragment {
         if (bundle!=null)
             index = bundle.getInt("index");
         tvTeble.setText(teble[index]);
-        ip = index == 5 ?  Tools.IP+"GetRoadStatus.do" :Tools.IP+"GetSenseByName.do" ;
+        ip = index == 5 ?  Tools.getIP("GetRoadStatus.do") : Tools.getIP("GetSenseByName.do") ;
 
         initHandler();
         initView();
@@ -182,7 +182,7 @@ public class RealTimeShowViewPager extends Fragment {
             mNetRequest = new NetRequest(getContext(),ip,mHandler);
             Map<String,String> params = new HashMap<>();
             params.put( keys[index],values[index]);
-            params.put("UserName","admin");
+            params.put("UserName",Tools.getUserName(getContext()));
             mNetRequest.setParams(params);
             mNetRequest.setLoop(true);
             mNetRequest.setLoopTime(3000);
