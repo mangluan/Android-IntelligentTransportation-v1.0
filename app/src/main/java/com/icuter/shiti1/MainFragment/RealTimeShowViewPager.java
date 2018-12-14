@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.icuter.shiti1.R;
 import com.icuter.shiti1.Util.MySQLite;
 import com.icuter.shiti1.Util.NetRequest;
@@ -54,28 +52,28 @@ public class RealTimeShowViewPager extends Fragment {
     int index = 0;
     String ip;
     TextView tvTeble;
-    int[] maxs = new int[]{ 40 , 60 , 8000 , 8000 , 500 , 5 };
-    int[] counts = new int[]{ 4 , 6 ,8 ,8 ,5 ,5 };
-    String[] teble = new String[]{ "温度", "湿度", "光照", "CO2", "PM2.5", "道理状况"};
-    String[] keys = new String[]{ "SenseName", "SenseName", "SenseName", "SenseName", "SenseName" ,"RoadId"};
-    String[] values = new String[]{ "temperature", "humidity", "co2", "LightIntensity", "pm2.5" ,"1"};
-    String[] respost = new String[]{ "temperature", "humidity", "co2", "LightIntensity", "pm2.5" ,"Status"};
+    int[] maxs = new int[]{40, 60, 8000, 8000, 500, 5};
+    int[] counts = new int[]{4, 6, 8, 8, 5, 5};
+    String[] teble = new String[]{"温度", "湿度", "光照", "CO2", "PM2.5", "道理状况"};
+    String[] keys = new String[]{"SenseName", "SenseName", "SenseName", "SenseName", "SenseName", "RoadId"};
+    String[] values = new String[]{"temperature", "humidity", "co2", "LightIntensity", "pm2.5", "1"};
+    String[] respost = new String[]{"temperature", "humidity", "co2", "LightIntensity", "pm2.5", "Status"};
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.main_real_time_show_pager,container,false);
+        View view = inflater.inflate(R.layout.main_real_time_show_pager, container, false);
         tvTeble = view.findViewById(R.id.teble_show_pager);
 
         lineChart = view.findViewById(R.id.lineChart);
-        mySQLite = new MySQLite(getContext(),"Data");
+        mySQLite = new MySQLite(getContext(), "Data");
 
         Bundle bundle = getArguments();
-        if (bundle!=null)
+        if (bundle != null)
             index = bundle.getInt("index");
         tvTeble.setText(teble[index]);
-        ip = index == 5 ?  Tools.getIP("GetRoadStatus.do") : Tools.getIP("GetSenseByName.do") ;
+        ip = index == 5 ? Tools.getIP("GetRoadStatus.do") : Tools.getIP("GetSenseByName.do");
 
         initHandler();
         initView();
@@ -85,37 +83,38 @@ public class RealTimeShowViewPager extends Fragment {
 
     @SuppressLint("HandlerLeak")
     private void initHandler() {
-        mHandler = new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == 1){
+                if (msg.what == 1) {
                     String result = msg.obj.toString();
                     try {
                         JSONObject object = new JSONObject(result);
                         int value = object.getInt(respost[index]);
 
                         long time = System.currentTimeMillis();
-                        mySQLite.ExecSQL("insert into HuanJingZhiShu (name ,_index , mTime) values (? ,? ,? )" ,
-                                teble[index],String.valueOf(value), String.valueOf(time));
+                        mySQLite.ExecSQL("insert into HuanJingZhiShu (name ,_index , mTime) values (? ,? ,? )",
+                                teble[index], String.valueOf(value), String.valueOf(time));
 
-                        addEntry(value ,time);
+                        addEntry(value, time);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if (msg.what == -1) {
-                    Toast.makeText(getContext(),"没有网络连接",Toast.LENGTH_LONG).show();
+                } else if (msg.what == -1) {
+                    Toast.makeText(getContext(), "没有网络连接", Toast.LENGTH_LONG).show();
                 }
             }
         };
     }
-    private void addEntry(float num , long time) {
+
+    private void addEntry(float num, long time) {
         //注意每次添加数据需要设置数据源
         lineChart.setData(data);
         //添加X轴标签
-        SimpleDateFormat format = new SimpleDateFormat("MM:ss");
+        SimpleDateFormat format = new SimpleDateFormat("mm:ss");
         xData.add(format.format(time));
-        Entry entry=new Entry(num,dataSet.getEntryCount());
+        Entry entry = new Entry(num, dataSet.getEntryCount());
         //将该数据点加到lineData数据中，第二个参数为数据集的下标，因为只有一个数据集所以为0
         dataSet.addEntry(entry);
         //通知数据和图表数据已经改变
@@ -124,7 +123,7 @@ public class RealTimeShowViewPager extends Fragment {
         //设置图表显示最大数据的最大个数
         lineChart.setVisibleXRangeMaximum(20);
         //平移位置
-        lineChart.moveViewToX(dataSet.getEntryCount()-1);
+        lineChart.moveViewToX(dataSet.getEntryCount() - 1);
     }
 
     @Override
@@ -138,36 +137,37 @@ public class RealTimeShowViewPager extends Fragment {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
+        xAxis.setLabelsToSkip(0);
 
         YAxis yLeft = lineChart.getAxisLeft();
         YAxis yRight = lineChart.getAxisRight();
         yLeft.setAxisMaxValue(maxs[index]);
         yLeft.setAxisMinValue(0f);
-        yLeft.setLabelCount(counts[index],false);
+        yLeft.setLabelCount(counts[index], false);
 
         yLeft.setDrawAxisLine(false);
         yRight.setDrawAxisLine(false);
         yRight.setEnabled(false);
 
-        Legend legend=lineChart.getLegend();
+        Legend legend = lineChart.getLegend();
         legend.setEnabled(false);
 
         initData();
     }
 
     private void initData() {
-        long _time = System.currentTimeMillis()-60000;
-        mySQLite.ExecSQL("delete from HuanJingZhiShu where mTime < ?" , String.valueOf(_time));
-        List<MyData> myList = mySQLite.ShowQuery("select * from HuanJingZhiShu where  name = '" + teble[index] +"'");
+        long _time = System.currentTimeMillis() - 60000;
+        mySQLite.ExecSQL("delete from HuanJingZhiShu where mTime < ?", String.valueOf(_time));
+        List<MyData> myList = mySQLite.ShowQuery("select * from HuanJingZhiShu where  name = '" + teble[index] + "'");
 
         xData = new ArrayList<>();
         List<Entry> entries = new ArrayList<>();
         for (int i = 0; i < myList.size(); i++) {
             MyData data = myList.get(i);
-            entries.add(new Entry(data.getIndex(),i));
+            entries.add(new Entry(data.getIndex(), i));
             xData.add(data.getTime());
         }
-        dataSet = new LineDataSet(entries,teble[index]);
+        dataSet = new LineDataSet(entries, teble[index]);
         dataSet.setColor(Color.parseColor("#8F8F8F"));
         dataSet.setCircleColor(Color.parseColor("#8F8F8F"));
         dataSet.setDrawCircleHole(false);
@@ -179,10 +179,10 @@ public class RealTimeShowViewPager extends Fragment {
 
     private void initNetRequest() {
         try {
-            mNetRequest = new NetRequest(getContext(),ip,mHandler);
-            Map<String,String> params = new HashMap<>();
-            params.put( keys[index],values[index]);
-            params.put("UserName",Tools.getUserName(getContext()));
+            mNetRequest = new NetRequest(getContext(), ip, mHandler);
+            Map<String, String> params = new HashMap<>();
+            params.put(keys[index], values[index]);
+            params.put("UserName", Tools.getUserName(getContext()));
             mNetRequest.setParams(params);
             mNetRequest.setLoop(true);
             mNetRequest.setLoopTime(3000);
@@ -192,7 +192,7 @@ public class RealTimeShowViewPager extends Fragment {
         }
     }
 
-    public static class MyData{
+    public static class MyData {
         String name;
         int index;
         String time;
@@ -200,7 +200,7 @@ public class RealTimeShowViewPager extends Fragment {
         public MyData(String name, int index, long _time) {
             this.name = name;
             this.index = index;
-            SimpleDateFormat format = new SimpleDateFormat("MM:ss");
+            SimpleDateFormat format = new SimpleDateFormat("mm:ss");
             this.time = format.format(_time);
         }
 

@@ -2,22 +2,16 @@ package com.icuter.shiti1.MainFragment;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,7 +34,7 @@ import java.util.Map;
 /**
  * 红绿灯管理
  */
-public class HLManage  extends Fragment {
+public class HLManage extends Fragment {
 
     private ListView mList;
     private List<ListData> mDataList;
@@ -54,9 +48,9 @@ public class HLManage  extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.main_hl_manage,null);
+        view = inflater.inflate(R.layout.main_hl_manage, null);
         index = 1;
-        mySQLite = new MySQLite(HLManage.this.getContext(),"Data");
+        mySQLite = new MySQLite(HLManage.this.getContext(), "Data");
         mySQLite.ExecSQL("delete from HongLvDENG");
         initHandler();
         initView();
@@ -65,30 +59,30 @@ public class HLManage  extends Fragment {
 
     @SuppressLint("HandlerLeak")
     private void initHandler() {
-        mHandler = new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == 1){
+                if (msg.what == 1) {
                     try {
                         JSONObject jsonObject = new JSONObject(msg.obj.toString());
                         String RedTime = jsonObject.getString("RedTime");
                         String GreenTime = jsonObject.getString("GreenTime");
                         String YellowTime = jsonObject.getString("YellowTime");
                         mySQLite.ExecSQL("insert into HongLvDENG (_id, Hong, Huang, Lv) values (?, ?, ?, ?)",
-                                String.valueOf(index),RedTime,YellowTime,GreenTime);
-                        if (index==5){
+                                String.valueOf(index), RedTime, YellowTime, GreenTime);
+                        if (index == 5) {
                             mDataList = mySQLite.HLQuery("select * from HongLvDENG order by _id asc");
                             myAdapter.notifyDataSetChanged();
                         }
-                        if (index++<5){
+                        if (index++ < 5) {
                             initData();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if (msg.what == -1) {
-                    Toast.makeText(getContext(),"没有网络连接",Toast.LENGTH_LONG).show();
+                } else if (msg.what == -1) {
+                    Toast.makeText(getContext(), "没有网络连接", Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -105,7 +99,7 @@ public class HLManage  extends Fragment {
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
+                switch (i) {
                     case 0:
                         mDataList = mySQLite.HLQuery("select * from HongLvDENG order by _id asc");
                         myAdapter.notifyDataSetChanged();
@@ -150,46 +144,46 @@ public class HLManage  extends Fragment {
 
     private void initData() {
         try {
-                NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("GetTrafficLightConfigAction.do") ,mHandler);
-                Map<String,String> params = new HashMap<>();
-                params.put("TrafficLightId",index+"");
-                params.put("UserName",Tools.getUserName(getContext()));
-                netRequest.setParams(params);
-                new Thread(netRequest).start();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("GetTrafficLightConfigAction.do"), mHandler);
+            Map<String, String> params = new HashMap<>();
+            params.put("TrafficLightId", index + "");
+            params.put("UserName", Tools.getUserName(getContext()));
+            netRequest.setParams(params);
+            new Thread(netRequest).start();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static class ListData {
+        private int index;
+        private int hong;
+        private int huang;
+        private int lv;
+
+        public ListData(int index, int hong, int huang, int lv) {
+            this.hong = hong;
+            this.huang = huang;
+            this.lv = lv;
+            this.index = index;
         }
 
-     public static class ListData {
-         private int index;
-         private int hong;
-         private int huang;
-         private int lv;
+        public int getIndex() {
+            return index;
+        }
 
-         public ListData(int index, int hong, int huang, int lv) {
-             this.hong = hong;
-             this.huang = huang;
-             this.lv = lv;
-             this.index = index;
-         }
+        public int getHong() {
+            return hong;
+        }
 
-         public int getIndex() {
-             return index;
-         }
+        public int getHuang() {
+            return huang;
+        }
 
-         public int getHong() {
-             return hong;
-         }
-
-         public int getHuang() {
-             return huang;
-         }
-
-         public int getLv() {
-             return lv;
-         }
-     }
+        public int getLv() {
+            return lv;
+        }
+    }
 
     class HLManageAdapter extends BaseAdapter {
 
@@ -219,9 +213,9 @@ public class HLManage  extends Fragment {
             TextView lv = view.findViewById(R.id.lv_hl_list_main);
 
             index.setText(data.getIndex() + "");
-            hong.setText(data.getHong()+"");
-            huang.setText(data.getHuang()+"");
-            lv.setText(data.getLv()+"");
+            hong.setText(data.getHong() + "");
+            huang.setText(data.getHuang() + "");
+            lv.setText(data.getLv() + "");
             return view;
         }
     }

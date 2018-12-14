@@ -2,7 +2,6 @@ package com.icuter.shiti1.Dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.icuter.shiti1.R;
  * Created by 50834 on 2018/12/1.
  */
 
-public class DialogMainMeAccount extends Dialog{
+public class DialogMainMeAccount extends Dialog {
 
     Context mContext;
     EditText etMoney;
@@ -64,13 +63,14 @@ public class DialogMainMeAccount extends Dialog{
         });
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return Integer.parseInt(etMoney.getText().toString());
     }
 
-   public interface bcListener{
+    public interface bcListener {
         void bcBtn();
     }
+
     private bcListener mBcListener;
 
     public void setBcListener(bcListener bcListener) {

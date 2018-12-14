@@ -1,24 +1,27 @@
 package com.icuter.shiti1;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,8 +32,8 @@ import com.icuter.shiti1.MainFragment.MaxSetting;
 import com.icuter.shiti1.MainFragment.MeAccount;
 import com.icuter.shiti1.MainFragment.PM2_5Index;
 import com.icuter.shiti1.MainFragment.RealTimeShow;
-import com.icuter.shiti1.MainFragment.RealTimeShowViewPager;
 import com.icuter.shiti1.MainFragment.TripManage;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,14 +46,37 @@ public class MainActivity extends AppCompatActivity {
     TextView mTitle;
     ImageView mImageBtn;
 
+    float downX = 0;
+    float upX = 0;
+
     //跳转实时显示广播
     private MyBroadcast myBroadcast;
     private SharedPreferences mSharedPreferences;
+
+    LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mLinearLayout = findViewById(R.id.linearlayout_main);
+        mLinearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        downX = motionEvent.getX();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        upX = motionEvent.getX();
+                        if (upX - downX > 80)
+                            mDrawerLayout.openDrawer(Gravity.START);
+                        break;
+                }
+                return true;
+            }
+        });
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) actionBar.hide();
@@ -80,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if ( i == listStr.length-1) {
+                if (i == listStr.length - 1) {
                     //更改自动登陆标记
                     SharedPreferences mSharedPreferences = getSharedPreferences("Data", MainActivity.this.MODE_PRIVATE);
                     SharedPreferences.Editor mEditor = mSharedPreferences.edit();
@@ -89,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
                     LoginActivity.startAction(MainActivity.this);
                     //销毁当前界面
                     MainActivity.this.finish();
-                }else {
+                } else {
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.fragment_main,fragments[i]).commit();
+                    ft.replace(R.id.fragment_main, fragments[i]).commit();
                     mTitle.setText(listStr[i]);
                     mDrawerLayout.closeDrawers();
                 }
@@ -102,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragments() {
         mSharedPreferences = getSharedPreferences("Data", MODE_PRIVATE);
-        if (mSharedPreferences.getString("UserRole","").equals("admin")){
-            listStr = new String[]{ "我的账户" ,"红绿灯管理" , "账单管理" , "车辆违章" , "环境指标" , "实时显示" ,"阈值设置" , "出行管理" , "退出登录"};
+        if (mSharedPreferences.getString("UserRole", "").equals("admin")) {
+            listStr = new String[]{"我的账户", "红绿灯管理", "账单管理", "车辆违章", "环境指标", "实时显示", "阈值设置", "出行管理", "退出登录"};
 
             fragments = new Fragment[listStr.length];
             fragments[0] = new MeAccount();
@@ -114,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
             fragments[5] = new RealTimeShow();
             fragments[6] = new MaxSetting();
             fragments[7] = new TripManage();
-        }else{
-            listStr = new String[]{ "我的账户" , "账单管理" , "车辆违章" , "环境指标" , "实时显示" ,"阈值设置" , "出行管理" , "退出登录"};
+        } else {
+            listStr = new String[]{"我的账户", "账单管理", "车辆违章", "环境指标", "实时显示", "阈值设置", "出行管理", "退出登录"};
 
             fragments = new Fragment[listStr.length];
             fragments[0] = new MeAccount();
@@ -128,21 +154,21 @@ public class MainActivity extends AppCompatActivity {
         }
         fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.fragment_main,fragments[0]).commit();
+        ft.add(R.id.fragment_main, fragments[0]).commit();
     }
 
-    class MyBroadcast extends BroadcastReceiver{
+    class MyBroadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            int index = intent.getIntExtra("index",0);
+            int index = intent.getIntExtra("index", 0);
             Bundle bundle = new Bundle();
-            bundle.putInt("index",index);
+            bundle.putInt("index", index);
             FragmentTransaction ft = fm.beginTransaction();
-            if (!mSharedPreferences.getString("UserRole","R01").equals("admin")) {
+            if (!mSharedPreferences.getString("UserRole", "R01").equals("admin")) {
                 fragments[4].setArguments(bundle);
                 ft.replace(R.id.fragment_main, fragments[4]).commit();
                 mTitle.setText(listStr[4]);
-            }else {
+            } else {
                 fragments[5].setArguments(bundle);
                 ft.replace(R.id.fragment_main, fragments[5]).commit();
                 mTitle.setText(listStr[5]);
@@ -156,11 +182,12 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(myBroadcast);
     }
 
-    public static void startAction(Context context){
-        Intent intent = new Intent(context,MainActivity.class);
+    public static void startAction(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
-    class MyListAdapter extends BaseAdapter{
+
+    class MyListAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -177,12 +204,13 @@ public class MainActivity extends AppCompatActivity {
             return i;
         }
 
+        @SuppressLint("ViewHolder")
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             view = LayoutInflater.from(MainActivity.this).inflate(R.layout.support_simple_spinner_dropdown_item, viewGroup, false);
             TextView textView = view.findViewById(android.R.id.text1);
             textView.setGravity(Gravity.CENTER);
-            textView.setPadding(0,0,20,0);
+            textView.setPadding(0, 0, 20, 0);
             textView.setText(listStr[i]);
             return view;
         }

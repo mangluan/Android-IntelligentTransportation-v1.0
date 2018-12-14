@@ -35,7 +35,7 @@ public class DialogLogin extends Dialog{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_login);
 
-        SharedPreferences sharedPreferences =  mContext.getSharedPreferences("Data", mContext.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("Data", mContext.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         etIp = findViewById(R.id.ip_et_dialog_login);

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
     <TextView
         android:id="@+id/teble_show_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="温度"
         android:textColor="#000"
-        android:textSize="20sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="20sp" />
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
-        android:padding="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_width="800dp"
-        android:layout_height="500dp">
+        android:layout_height="500dp"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp">
     </com.github.mikephil.charting.charts.LineChart>
 </LinearLayout>

@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -41,13 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         fragment1 = new Fragment1();
         fragment1.setContext(this);
 
-        mSharedPreferences = getSharedPreferences("Data",MODE_PRIVATE);
+        mSharedPreferences = getSharedPreferences("Data", MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
 
         IntentFilter intentFilter = new IntentFilter("LoginFinish");
-        registerReceiver(mMyBroadcast,intentFilter);
+        registerReceiver(mMyBroadcast, intentFilter);
 
-        if (mSharedPreferences.getBoolean("aotoLogIn",false)){
+        if (mSharedPreferences.getBoolean("aotoLogIn", false)) {
             //自动登录
             MainActivity.startAction(this);
             //发送销毁当前活动广播
@@ -85,10 +85,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initAction() {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar!=null) actionBar.hide();
-        if ( mSharedPreferences.getInt("shan",0) == 0 ){
+        if (actionBar != null) actionBar.hide();
+        if (mSharedPreferences.getInt("shan", 0) == 0) {
             ShanActivity.startAction(this);
-            mEditor.putInt("shan",1).apply();
+            mEditor.putInt("shan", 1).apply();
         }
     }
 
@@ -102,24 +102,24 @@ public class LoginActivity extends AppCompatActivity {
                 titleMain.setText("用户登录");
             }
         });
-        ft.replace(R.id.fragment_login,fragment2).addToBackStack(null).commit();
+        ft.replace(R.id.fragment_login, fragment2).addToBackStack(null).commit();
         titleMain.setText("用户注册");
     }
 
-    public static void startAction(Context context){
-        Intent intent = new Intent(context,LoginActivity.class);
+    public static void startAction(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             titleMain.setText("用户登录");
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    class MyBroadcast extends BroadcastReceiver{
+    class MyBroadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             new Handler().postDelayed(new Runnable() {

@@ -42,29 +42,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <TextView
-        android:text="暂无历史记录"
-        android:gravity="center"
-        android:textColor="#000"
-        android:textSize="24sp"
-        android:visibility="gone"
-        android:id="@+id/null_List_tv_bill_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <LinearLayout
-        android:orientation="vertical"
-        android:background="@drawable/heikuang"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/main_bill_manage_list"/>
-        <ListView
-            android:id="@+id/bill_list_main"
+        <TextView
+            android:text="暂无历史记录"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:id="@+id/null_List_tv_bill_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-    </LinearLayout>
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/heikuang"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/main_bill_manage_list"/>
+            <ListView
+                android:id="@+id/bill_list_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

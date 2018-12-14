@@ -10,11 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -236,7 +233,7 @@ public class PM2_5Index extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("icuter.DataShow");
-                    intent.putExtra("index",position);
+                    intent.putExtra("index", position);
                     getContext().sendBroadcast(intent);
                 }
             });

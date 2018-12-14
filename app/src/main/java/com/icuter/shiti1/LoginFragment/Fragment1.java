@@ -5,13 +5,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.icuter.shiti1.MainActivity;
 import com.icuter.shiti1.R;
 import com.icuter.shiti1.Util.NetRequest;
@@ -56,9 +55,9 @@ public class Fragment1 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        etName.setText(mSharedPreferences.getString("id",""));
-        etPwd.setText(mSharedPreferences.getString("pwd",""));
-        if ( !mSharedPreferences.getString("pwd","").equals("")){
+        etName.setText(mSharedPreferences.getString("id", ""));
+        etPwd.setText(mSharedPreferences.getString("pwd", ""));
+        if (!mSharedPreferences.getString("pwd", "").equals("")) {
             cbPwd.setChecked(true);
         }
     }
@@ -82,16 +81,16 @@ public class Fragment1 extends Fragment {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etName.getText().toString().equals("")){
+                if (etName.getText().toString().equals("")) {
                     Toast.makeText(mContext, "用户名未输入", Toast.LENGTH_LONG).show();
-                }else if (etPwd.getText().toString().equals("")){
+                } else if (etPwd.getText().toString().equals("")) {
                     Toast.makeText(mContext, "密码未输入", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     try {
-                        NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("user_login.do"),mHandler);
-                        Map<String,String> params = new HashMap<>();
-                        params.put("UserName",etName.getText().toString());
-                        params.put("UserPwd",etPwd.getText().toString());
+                        NetRequest netRequest = new NetRequest(getContext(), Tools.getIP("user_login.do"), mHandler);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("UserName", etName.getText().toString());
+                        params.put("UserPwd", etPwd.getText().toString());
                         netRequest.setParams(params);
                         new Thread(netRequest).start();
                     } catch (MalformedURLException e) {
@@ -105,23 +104,24 @@ public class Fragment1 extends Fragment {
 
     @SuppressLint("HandlerLeak")
     private void initHandler() {
-        mHandler = new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == 1){
+                if (msg.what == 1) {
                     try {
                         JSONObject jsonObject = new JSONObject(msg.obj.toString());
                         if (jsonObject.getString("RESULT").equals("S")) {
-                            if (cbPwd.isChecked()){
-                                mEditor.putString("id",etName.getText().toString());
-                                mEditor.putString("pwd",etPwd.getText().toString());
-                            }else {
-                                mEditor.putString("id",etName.getText().toString());
-                                mEditor.putString("pwd","");
-                            }mEditor.apply();
+                            if (cbPwd.isChecked()) {
+                                mEditor.putString("id", etName.getText().toString());
+                                mEditor.putString("pwd", etPwd.getText().toString());
+                            } else {
+                                mEditor.putString("id", etName.getText().toString());
+                                mEditor.putString("pwd", "");
+                            }
+                            mEditor.apply();
                             //保存账户类型:R01:普通用户，R02：管理员，R03：超级管理员
-                            mEditor.putString("UserRole",jsonObject.getString("UserRole")).apply();
+                            mEditor.putString("UserRole", jsonObject.getString("UserRole")).apply();
                             //本地验证成功，登陆
                             MainActivity.startAction(mContext);
                             //保存自动登陆标记
@@ -136,8 +136,8 @@ public class Fragment1 extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if (msg.what == -1) {
-                    Toast.makeText(getContext(),"没有网络连接",Toast.LENGTH_LONG).show();
+                } else if (msg.what == -1) {
+                    Toast.makeText(getContext(), "没有网络连接", Toast.LENGTH_LONG).show();
                 }
             }
         };

@@ -1,13 +1,11 @@
 package com.icuter.shiti1.MainFragment;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.icuter.shiti1.R;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 /**
@@ -29,7 +26,7 @@ import java.util.Date;
 public class TripManage extends Fragment {
 
     ImageView nullImage;
-    int[] image = new int[]{R.drawable.image_hong,R.drawable.image_huang,R.drawable.image_lv};
+    int[] image = new int[]{R.drawable.image_hong, R.drawable.image_huang, R.drawable.image_lv};
     int imageIndex = 0;
     private View view;
     private TextView tvTime;
@@ -45,7 +42,7 @@ public class TripManage extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.main_trip_manage,container,false);
+        view = inflater.inflate(R.layout.main_trip_manage, container, false);
         initView();
         return view;
     }
@@ -67,7 +64,7 @@ public class TripManage extends Fragment {
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         String time = format.format(System.currentTimeMillis());
         tvTime.setText(time);
-        xianhao(Integer.parseInt(time.substring(8,10)));
+        xianhao(Integer.parseInt(time.substring(8, 10)));
 
         mLinearLayout = view.findViewById(R.id.linear_trip_main);
 
@@ -85,7 +82,7 @@ public class TripManage extends Fragment {
         timeView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                tvTime.setText( i + "年"+ (i1+1) +"月"+ i2 +"日");
+                tvTime.setText(i + "年" + (i1 + 1) + "月" + i2 + "日");
                 xianhao(i2);
                 mLinearLayout.setVisibility(View.GONE);
             }
@@ -93,7 +90,7 @@ public class TripManage extends Fragment {
     }
 
     private void xianhao(int hao) {
-        if ( hao%2 == 0){
+        if (hao % 2 == 0) {
             tvXianhao.setText("双号出行车辆：2");
 
             mSwitch1.setChecked(false);
@@ -107,7 +104,7 @@ public class TripManage extends Fragment {
             mSwitch1.setBackgroundColor(Color.parseColor("#ffefefef"));
             mSwitch2.setBackgroundColor(Color.parseColor("#00efefef"));
             mSwitch3.setBackgroundColor(Color.parseColor("#ffefefef"));
-        }else {
+        } else {
             tvXianhao.setText("单号出行车辆：1、3");
 
             mSwitch1.setChecked(true);
@@ -129,10 +126,10 @@ public class TripManage extends Fragment {
         mHandle.postDelayed(new Runnable() {
             @Override
             public void run() {
-                nullImage.setBackgroundResource( image[imageIndex++%3] );
-                mHandle.postDelayed(this,3000);
+                nullImage.setBackgroundResource(image[imageIndex++ % 3]);
+                mHandle.postDelayed(this, 3000);
             }
-        },3000);
+        }, 3000);
     }
 
     private void initData() {

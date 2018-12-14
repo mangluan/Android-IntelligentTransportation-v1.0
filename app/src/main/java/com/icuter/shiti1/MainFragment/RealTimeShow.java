@@ -5,12 +5,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,9 +14,6 @@ import android.widget.LinearLayout;
 
 import com.icuter.shiti1.R;
 
-/**
- * Created by 50834 on 2018/12/7.
- */
 
 public class RealTimeShow extends Fragment {
 
@@ -34,12 +27,12 @@ public class RealTimeShow extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.main_real_time_show,container,false);
+        view = inflater.inflate(R.layout.main_real_time_show, container, false);
         fm = getChildFragmentManager();
 
 
         Bundle bundle = getArguments();
-        if (bundle!=null)
+        if (bundle != null)
             index = bundle.getInt("index");
 
         initView();
@@ -61,7 +54,8 @@ public class RealTimeShow extends Fragment {
                     mViewPager.setCurrentItem((Integer) view.getTag());
                 }
             });
-        }mImages[0].setEnabled(false);
+        }
+        mImages[0].setEnabled(false);
 
 
         mViewPager.setAdapter(new FragmentPagerAdapter(fm) {
@@ -69,7 +63,7 @@ public class RealTimeShow extends Fragment {
             public Fragment getItem(int position) {
                 RealTimeShowViewPager show = new RealTimeShowViewPager();
                 Bundle bundle = new Bundle();
-                bundle.putInt("index",position);
+                bundle.putInt("index", position);
                 show.setArguments(bundle);
                 return show;
             }
@@ -107,6 +101,7 @@ public class RealTimeShow extends Fragment {
     private void ImagesEnnabled(int position) {
         for (ImageView image : mImages) {
             image.setEnabled(true);
-        }mImages[position].setEnabled(false);
+        }
+        mImages[position].setEnabled(false);
     }
 }

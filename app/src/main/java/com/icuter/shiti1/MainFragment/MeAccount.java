@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +55,8 @@ public class MeAccount extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.main_me_account,null);
-        mySQLite = new MySQLite(MeAccount.this.getContext(),"Data");
+        view = inflater.inflate(R.layout.main_me_account, null);
+        mySQLite = new MySQLite(MeAccount.this.getContext(), "Data");
         initHandler();
         initView();
         return view;
@@ -65,48 +64,48 @@ public class MeAccount extends Fragment {
 
     @SuppressLint("HandlerLeak")
     private void initHandler() {
-        mHandler = new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == 1){
+                if (msg.what == 1) {
                     try {
                         JSONObject jsonObject = new JSONObject(msg.obj.toString());
                         String money = jsonObject.getString("Balance");
-                        mMoney.setText(money+"元");
+                        mMoney.setText(money + "元");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if (msg.what == -1) {
-                    Toast.makeText(getContext(),"没有网络连接",Toast.LENGTH_LONG).show();
+                } else if (msg.what == -1) {
+                    Toast.makeText(getContext(), "没有网络连接", Toast.LENGTH_LONG).show();
                 }
             }
         };
-        mHandler2 = new Handler(){
+        mHandler2 = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if (msg.what == 1){
+                if (msg.what == 1) {
                     try {
                         JSONObject jsonObject = new JSONObject(msg.obj.toString());
                         String RESULT = jsonObject.getString("RESULT");
-                        if (RESULT.equals("S")){
-                            Toast.makeText(MeAccount.this.getContext(),"充值成功",Toast.LENGTH_LONG).show();
+                        if (RESULT.equals("S")) {
+                            Toast.makeText(MeAccount.this.getContext(), "充值成功", Toast.LENGTH_LONG).show();
                             initData();
                             //保存数据库
                             SharedPreferences sharedPreferences = getContext().getSharedPreferences("Data", Context.MODE_PRIVATE);
                             SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
                             String time = format.format(new Date());
                             mySQLite.ExecSQL("insert into ChongZhiJiLu (carID ,money , UserName , time ) values (? ,? ,?, ?)",
-                                    String.valueOf(mSpinner.getSelectedItemPosition()+1),String.valueOf(money),sharedPreferences.getString("id","admin"),time);
-                        }else if (RESULT.equals("F  ")) {
-                            Toast.makeText(MeAccount.this.getContext(),"充值失败",Toast.LENGTH_LONG).show();
+                                    String.valueOf(mSpinner.getSelectedItemPosition() + 1), String.valueOf(money), sharedPreferences.getString("id", "admin"), time);
+                        } else if (RESULT.equals("F  ")) {
+                            Toast.makeText(MeAccount.this.getContext(), "充值失败", Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else if (msg.what == -1) {
-                    Toast.makeText(getContext(),"没有网络连接",Toast.LENGTH_LONG).show();
+                } else if (msg.what == -1) {
+                    Toast.makeText(getContext(), "没有网络连接", Toast.LENGTH_LONG).show();
                 }
             }
         };
@@ -146,13 +145,13 @@ public class MeAccount extends Fragment {
                     @Override
                     public void bcBtn() {
                         money = mDialog.getMoney();
-                        mMoney2.setText(money +"元");
+                        mMoney2.setText(money + "元");
                         try {
-                            NetRequest netRequest = new NetRequest(mContext, Tools.getIP("SetCarAccountRecharge.do") ,mHandler2);
-                            Map<String,String> params = new HashMap<>();
-                            params.put("CarId",(mSpinner.getSelectedItemPosition()+1)+"");
-                            params.put("Money", money +"");
-                            params.put("UserName",Tools.getUserName(getContext()));
+                            NetRequest netRequest = new NetRequest(mContext, Tools.getIP("SetCarAccountRecharge.do"), mHandler2);
+                            Map<String, String> params = new HashMap<>();
+                            params.put("CarId", (mSpinner.getSelectedItemPosition() + 1) + "");
+                            params.put("Money", money + "");
+                            params.put("UserName", Tools.getUserName(getContext()));
                             netRequest.setParams(params);
                             new Thread(netRequest).start();
                         } catch (MalformedURLException e) {
@@ -168,10 +167,10 @@ public class MeAccount extends Fragment {
 
     private void initData() {
         try {
-            NetRequest netRequest = new NetRequest(mContext, Tools.getIP("GetCarAccountBalance.do") ,mHandler);
-            Map<String,String> params = new HashMap<>();
-            params.put("CarId",(mSpinner.getSelectedItemPosition()+1)+"");
-            params.put("UserName",Tools.getUserName(getContext()));
+            NetRequest netRequest = new NetRequest(mContext, Tools.getIP("GetCarAccountBalance.do"), mHandler);
+            Map<String, String> params = new HashMap<>();
+            params.put("CarId", (mSpinner.getSelectedItemPosition() + 1) + "");
+            params.put("UserName", Tools.getUserName(getContext()));
             netRequest.setParams(params);
             new Thread(netRequest).start();
         } catch (MalformedURLException e) {

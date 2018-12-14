@@ -15,12 +15,8 @@ import android.widget.TextView;
 import com.icuter.shiti1.R;
 import com.icuter.shiti1.Util.MySQLite;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -41,8 +37,8 @@ public class BillManage extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.main_bill_manage,null);
-        mySQLite = new MySQLite(getContext(),"Data");
+        view = inflater.inflate(R.layout.main_bill_manage, null);
+        mySQLite = new MySQLite(getContext(), "Data");
         initView();
         return view;
     }
@@ -69,7 +65,7 @@ public class BillManage extends Fragment {
                     case 0:
                         mDataList = mySQLite.BillQuery("select * from ChongZhiJiLu order by time desc");
                         myAdapter.notifyDataSetChanged();
-                        if (mDataList.size()==0)
+                        if (mDataList.size() == 0)
                             tvNull.setVisibility(View.VISIBLE);
                         else
                             tvNull.setVisibility(View.GONE);
@@ -77,7 +73,7 @@ public class BillManage extends Fragment {
                     case 1:
                         mDataList = mySQLite.BillQuery("select * from ChongZhiJiLu order by time asc");
                         myAdapter.notifyDataSetChanged();
-                        if (mDataList.size()==0)
+                        if (mDataList.size() == 0)
                             tvNull.setVisibility(View.VISIBLE);
                         else
                             tvNull.setVisibility(View.GONE);
@@ -92,7 +88,7 @@ public class BillManage extends Fragment {
         });
     }
 
-    static public class ListData{
+    static public class ListData {
         private int carID;
         private int money;
         private String name;
@@ -141,18 +137,18 @@ public class BillManage extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-           ListData data = mDataList.get(i);
+            ListData data = mDataList.get(i);
 
-            view = LayoutInflater.from(getContext()).inflate(R.layout.main_bill_manage_list,null);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.main_bill_manage_list, null);
             TextView index = view.findViewById(R.id.index_bill_list_main);
             TextView carID = view.findViewById(R.id.carId_bill_list_main);
             TextView money = view.findViewById(R.id.money_bill_list_main);
             TextView name = view.findViewById(R.id.name_bill_list_main);
             TextView time = view.findViewById(R.id.time_bill_list_main);
 
-            index.setText(i+1+"");
-            carID.setText(data.getCarID()+"");
-            money.setText(data.getMoney()+"");
+            index.setText(i + 1 + "");
+            carID.setText(data.getCarID() + "");
+            money.setText(data.getMoney() + "");
             name.setText(data.getName());
             time.setText(data.getTime());
             return view;

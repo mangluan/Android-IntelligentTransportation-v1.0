@@ -10,21 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.icuter.shiti1.R;
 
 public class Fragment2 extends Fragment {
 
-    public interface TitileListener{
+    public interface TitileListener {
         void mFinish();
     }
+
     private TitileListener mListener;
+
     public void setListener(TitileListener listener) {
         mListener = listener;
     }
 
-    public void setContext (Context context){
+    public void setContext(Context context) {
         mContext = context;
     }
 
